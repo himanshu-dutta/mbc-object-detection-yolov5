@@ -1,0 +1,21 @@
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+train: ../data/images/train/
+val: ../data/images/val/
+
+# number of classes
+nc: 10
+
+# class names
+names:
+  [
+    "curry leaves",
+    "garam masala",
+    "ghee",
+    "ginger",
+    "jaggery",
+    "milk",
+    "rice flour",
+    "sugar",
+    "tomato",
+    "urad dal",
+  ]
