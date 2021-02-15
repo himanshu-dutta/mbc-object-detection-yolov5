@@ -4,7 +4,7 @@ An instance of [YOLOv5](https://github.com/ultralytics/yolov5) trained on custom
 
 Following are the model parameters used:
 
-<p align="center">
+<center>
 <table style="width:100%">
   <tr>
     <th>Model parameters</th>
@@ -31,7 +31,7 @@ Following are the model parameters used:
     <td>640</td>
   </tr>
 </table>
-</p>
+</center>
 
 After training, the default export scirpt was modified to make sure the outputs of the inference instance {bounding boxes, confidence, class}. Below are some visual results of the model training:
 
