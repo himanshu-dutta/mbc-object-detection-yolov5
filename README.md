@@ -4,17 +4,24 @@ An instance of [YOLOv5](https://github.com/ultralytics/yolov5) trained on custom
 
 Following are the model parameters used:
 
-| Model parameters     |   value |
-| -------------------- | ------: |
-| Number of epochs     |     100 |
-| Training batch Size  |      16 |
-| Inference batch size |       1 |
+| Model parameters     | value   |
+| -------------------- | ------- |
+| Number of epochs     | 100     |
+| Training batch Size  | 16      |
+| Inference batch size | 1       |
 | Model configuration  | yolov5m |
-| Image size           |     640 |
+| Image size           | 640     |
 
-After training, the default export scirpt was modified to make sure the outputs of the inference instance {bounding boxes, confidence, class}.
+After training, the default export scirpt was modified to make sure the outputs of the inference instance {bounding boxes, confidence, class}. Below are some visual results of the model training:
+
+![](https://github.com/himanshu-dutta/mbc-object-detection-yolov5/blob/master/results/cm.png?raw=true =600x)
+
+![](https://github.com/himanshu-dutta/mbc-object-detection-yolov5/blob/master/results/results.png?raw=true =780x480)
+
+![](https://github.com/himanshu-dutta/mbc-object-detection-yolov5/blob/master/results/batch.jpg?raw=true =600x)
 
 ### Connected repositories
 
 -   [Inference Endpoint](https://github.com/himanshu-dutta/mbc-endpoint)
+
 -   [Frontend Application](https://github.com/himanshu-dutta/mbc-frontend)
