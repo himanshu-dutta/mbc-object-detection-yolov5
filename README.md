@@ -4,13 +4,34 @@ An instance of [YOLOv5](https://github.com/ultralytics/yolov5) trained on custom
 
 Following are the model parameters used:
 
-| Model parameters     | value   |
-| -------------------- | ------- |
-| Number of epochs     | 100     |
-| Training batch Size  | 16      |
-| Inference batch size | 1       |
-| Model configuration  | yolov5m |
-| Image size           | 640     |
+<p align="center">
+<table style="width:100%">
+  <tr>
+    <th>Model parameters</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Number of epochs</td>
+    <td>100</td>
+  </tr>
+  <tr>
+    <td>Training batch size</td>
+    <td>16</td>
+  </tr>
+  <tr>
+    <td>Inference batch size</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Model configuration</td>
+    <td>yolov5m</td>
+  </tr>
+  <tr>
+    <td>Image size</td>
+    <td>640</td>
+  </tr>
+</table>
+</p>
 
 After training, the default export scirpt was modified to make sure the outputs of the inference instance {bounding boxes, confidence, class}. Below are some visual results of the model training:
 
