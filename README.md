@@ -14,11 +14,9 @@ Following are the model parameters used:
 
 After training, the default export scirpt was modified to make sure the outputs of the inference instance {bounding boxes, confidence, class}. Below are some visual results of the model training:
 
-![](https://github.com/himanshu-dutta/mbc-object-detection-yolov5/blob/master/results/cm.png?raw=true =600x)
-
-![](https://github.com/himanshu-dutta/mbc-object-detection-yolov5/blob/master/results/results.png?raw=true =780x480)
-
-![](https://github.com/himanshu-dutta/mbc-object-detection-yolov5/blob/master/results/batch.jpg?raw=true =600x)
+<p align="center"><img width="60%" src="results/cm.png" /></p>
+<p align="center"><img width="780px" height="480px" src="results/results.png" /></p>
+<p align="center"><img width="60%" src="results/batch.jpg" /></p>
 
 ### Connected repositories
 
