@@ -42,5 +42,4 @@ After training, the default export scirpt was modified to make sure the outputs 
 ### Connected repositories
 
 -   [Inference Endpoint](https://github.com/himanshu-dutta/mbc-endpoint)
-
--   [Frontend Application](https://github.com/himanshu-dutta/mbc-frontend)
+-   [Native Application](https://github.com/himanshu-dutta/mbc-native)
