@@ -5,7 +5,7 @@ import math
 import hashlib
 import logging
 import requests
-from tqdm import *
+from tqdm import tqdm
 from PIL import Image
 import urllib.request
 from typing import Union, List
@@ -15,9 +15,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def init_driver(fetcher):
     options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    tab = webdriver.Chrome(ChromeDriverManager(
-        log_level=logging.WARNING).install(), options=options)
+    options.add_argument("headless")
+    tab = webdriver.Chrome(
+        ChromeDriverManager(log_level=logging.WARNING).install(), options=options
+    )
 
     def fetcher_with_tab(*args, **kwargs):
         return fetcher(*args, **kwargs, driver=tab)
@@ -26,7 +27,11 @@ def init_driver(fetcher):
 
 
 @init_driver
-def google_images_scraper(search_term: str, min_image_count: int = 10, driver: webdriver.chrome.webdriver.WebDriver = None) -> list:
+def google_images_scraper(
+    search_term: str,
+    min_image_count: int = 10,
+    driver: webdriver.chrome.webdriver.WebDriver = None,
+) -> list:
     base_url = "https://www.google.com/imghp?hl=en"
     driver.get(base_url)
     search_form = driver.find_element_by_name("q")
@@ -34,17 +39,22 @@ def google_images_scraper(search_term: str, min_image_count: int = 10, driver: w
     search_form.submit()
     urls = []
     while len(urls) < min_image_count:
-        driver.execute_script(
-            "window.scrollTo(0, document.body.scrollHeight);")
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         urls = driver.execute_script(
-            "return Array.from(document.querySelectorAll(\'.rg_i\')).map(el=> el.hasAttribute(\'data-src\')?el.getAttribute(\'data-src\'):el.getAttribute(\'data-iurl\'));")
+            "return Array.from(document.querySelectorAll('.rg_i')).map(el=> el.hasAttribute('data-src')?el.getAttribute('data-src'):el.getAttribute('data-iurl'));"
+        )
 
         while None in urls:
             urls.remove(None)
     return urls
 
 
-def download_images_from_url(urls: Union[str, List[str]], image_tag: str, format: str = 'png',  save_location: str = ".") -> None:
+def download_images_from_url(
+    urls: Union[str, List[str]],
+    image_tag: str,
+    format: str = "png",
+    save_location: str = ".",
+) -> None:
     dir = os.path.join(save_location, image_tag)
     if not os.path.exists(dir):
         os.mkdir(dir)
@@ -54,8 +64,7 @@ def download_images_from_url(urls: Union[str, List[str]], image_tag: str, format
 
     if isinstance(urls, str):
         try:
-            urllib.request.urlretrieve(urls, os.path.join(
-                dir, "0001" + "." + format))
+            urllib.request.urlretrieve(urls, os.path.join(dir, "0001" + "." + format))
             print(f"Downloaded 1 image in {dir}.")
         except:
             print("Error encountered")
@@ -65,17 +74,23 @@ def download_images_from_url(urls: Union[str, List[str]], image_tag: str, format
         na = 0
         for idx in tqdm(range(len(urls))):
             try:
-                urllib.request.urlretrieve(urls[idx], os.path.join(
-                    dir, str(idx+1).zfill(pad) + "." + format))
+                urllib.request.urlretrieve(
+                    urls[idx], os.path.join(dir, str(idx + 1).zfill(pad) + "." + format)
+                )
             except:
                 na += 1
         print(f"Downloaded {len(urls)-na} images in {dir}.")
 
     else:
-        raise Exception("Invalid argument type for \"urls\"")
+        raise Exception('Invalid argument type for "urls"')
 
 
-def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_between_interactions: int = 1):
+def fetch_image_urls(
+    query: str,
+    max_links_to_fetch: int,
+    wd: webdriver,
+    sleep_between_interactions: int = 1,
+):
     def scroll_to_end(wd):
         wd.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(sleep_between_interactions)
@@ -97,7 +112,8 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_b
         number_results = len(thumbnail_results)
 
         print(
-            f"Found: {number_results} search results. Extracting links from {results_start}:{number_results}")
+            f"Found: {number_results} search results. Extracting links from {results_start}:{number_results}"
+        )
 
         for img in thumbnail_results[results_start:number_results]:
             # try to click every thumbnail such that we can get the real image behind it
@@ -108,10 +124,12 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_b
                 continue
 
             # extract image urls
-            actual_images = wd.find_elements_by_css_selector('img.n3VNCb')
+            actual_images = wd.find_elements_by_css_selector("img.n3VNCb")
             for actual_image in actual_images:
-                if actual_image.get_attribute('src') and 'http' in actual_image.get_attribute('src'):
-                    image_urls.add(actual_image.get_attribute('src'))
+                if actual_image.get_attribute(
+                    "src"
+                ) and "http" in actual_image.get_attribute("src"):
+                    image_urls.add(actual_image.get_attribute("src"))
 
             image_count = len(image_urls)
 
@@ -119,8 +137,7 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_b
                 print(f"Found: {len(image_urls)} image links, done!")
                 break
         else:
-            print("Found:", len(image_urls),
-                  "image links, looking for more ...")
+            print("Found:", len(image_urls), "image links, looking for more ...")
             time.sleep(30)
             return
             load_more_button = wd.find_element_by_css_selector(".mye4qd")
@@ -142,43 +159,47 @@ def persist_image(folder_path: str, file_name: str, url: str):
 
     try:
         image_file = io.BytesIO(image_content)
-        image = Image.open(image_file).convert('RGB')
+        image = Image.open(image_file).convert("RGB")
         folder_path = os.path.join(folder_path, file_name)
         if os.path.exists(folder_path):
-            file_path = os.path.join(folder_path, hashlib.sha1(
-                image_content).hexdigest()[:10] + '.jpg')
+            file_path = os.path.join(
+                folder_path, hashlib.sha1(image_content).hexdigest()[:10] + ".jpg"
+            )
         else:
             os.mkdir(folder_path)
-            file_path = os.path.join(folder_path, hashlib.sha1(
-                image_content).hexdigest()[:10] + '.jpg')
-        with open(file_path, 'wb') as f:
+            file_path = os.path.join(
+                folder_path, hashlib.sha1(image_content).hexdigest()[:10] + ".jpg"
+            )
+        with open(file_path, "wb") as f:
             image.save(f, "JPEG", quality=85)
         print(f"SUCCESS - saved {url} - as {file_path}")
     except Exception as e:
         print(f"ERROR - Could not save {url} - {e}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     wd = webdriver.Chrome(ChromeDriverManager().install())
-    queries = ['rice',
-               'saffron',
-               'cardamom',
-               'semolina',
-               'clarified butter',
-               'mustard seeds',
-               'yogurt',
-               'garlic',
-               'lemon juice',
-               'baking soda']
+    queries = [
+        "rice",
+        "saffron",
+        "cardamom",
+        "semolina",
+        "clarified butter",
+        "mustard seeds",
+        "yogurt",
+        "garlic",
+        "lemon juice",
+        "baking soda",
+    ]
 
-  # change your set of querries here
+    # change your set of querries here
     for query in queries:
-        wd.get('https://google.com')
-        search_box = wd.find_element_by_css_selector('input.gLFyf')
+        wd.get("https://google.com")
+        search_box = wd.find_element_by_css_selector("input.gLFyf")
         search_box.send_keys(query)
         links = fetch_image_urls(query, 50, wd)
         # images_path = '/Users/anand/Desktop/contri/images'  #enter your desired image path
-        images_path = 'indian-food-ingredients/top_30'
+        images_path = "indian-food-ingredients/top_30"
         for i in links:
             persist_image(images_path, query, i)
     wd.quit()

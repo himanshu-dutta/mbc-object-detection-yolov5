@@ -140,3 +140,5 @@ cython_debug/
 data/images
 data/labels
 indian-food-ingredients
+
+.vscode/

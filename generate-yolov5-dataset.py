@@ -4,6 +4,16 @@ import shutil
 
 
 def generate_datset(root_dir, target_dir, val_pct=0.2):
+    """
+    This function takes a folder with subfolders for different labels,
+    and samples the data into train and val splits, with the label as prefix of each image.
+    Target directory structure:
+    data/
+        |
+        |_train/
+        |
+        |_val/
+    """
     labels = os.listdir(root_dir)
 
     if not os.path.exists(target_dir):
@@ -24,8 +34,11 @@ def generate_datset(root_dir, target_dir, val_pct=0.2):
     for label in labels:
         label_dir = os.path.join(root_dir, label)
 
-        images = [img for img in os.listdir(label_dir) if img.endswith(
-            ".png") or img.endswith(".jpg") or img.endswith(".jpeg")]
+        images = [
+            img
+            for img in os.listdir(label_dir)
+            if img.endswith(".png") or img.endswith(".jpg") or img.endswith(".jpeg")
+        ]
         random.shuffle(images)
 
         val_size = int(len(images) * val_pct)
@@ -34,12 +47,12 @@ def generate_datset(root_dir, target_dir, val_pct=0.2):
 
         for img in images_train:
             frm = os.path.join(label_dir, img)
-            to = os.path.join(to_dir_train, f"{label}_"+img)
+            to = os.path.join(to_dir_train, f"{label}_" + img)
             shutil.copy(frm, to)
 
         for img in images_val:
             frm = os.path.join(label_dir, img)
-            to = os.path.join(to_dir_val, f"{label}_"+img)
+            to = os.path.join(to_dir_val, f"{label}_" + img)
             shutil.copy(frm, to)
 
 

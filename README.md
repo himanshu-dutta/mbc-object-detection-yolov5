@@ -33,7 +33,7 @@ Following are the model parameters used:
 </table>
 </center>
 
-After training, the default export scirpt was modified to make sure the outputs of the inference instance {bounding boxes, confidence, class}. Below are some visual results of the model training:
+After training, the default export scirpt for the yolov5 project was modified to make sure the outputs of the inference instance are {bounding boxes, confidence, class}. Below are some visual results of the model training:
 
 <p align="center"><img width="60%" src="results/cm.png" /></p>
 <p align="center"><img width="780px" height="480px" src="results/results.png" /></p>
@@ -44,3 +44,7 @@ After training, the default export scirpt was modified to make sure the outputs 
 -   [Inference Endpoint](https://github.com/himanshu-dutta/mbc-endpoint)
 
 -   [Frontend Application](https://github.com/himanshu-dutta/mbc-frontend)
+
+### Reference
+
+-   [Indian Food 101](https://www.kaggle.com/nehaprabhavalkar/indian-food-101)
