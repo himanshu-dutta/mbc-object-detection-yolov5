@@ -11,6 +11,14 @@ Following are the model parameters used:
     <th>Value</th>
   </tr>
   <tr>
+    <td>Model configuration</td>
+    <td>yolov5m</td>
+  </tr>
+  <tr>
+    <td>Image size</td>
+    <td>640</td>
+  </tr>
+  <tr>
     <td>Number of epochs</td>
     <td>100</td>
   </tr>
@@ -19,19 +27,17 @@ Following are the model parameters used:
     <td>16</td>
   </tr>
   <tr>
+    <td>Number of classes</td>
+    <td>10</td>
+  </tr>
+  <tr>
     <td>Inference batch size</td>
     <td>1</td>
   </tr>
-  <tr>
-    <td>Model configuration</td>
-    <td>yolov5m</td>
-  </tr>
-  <tr>
-    <td>Image size</td>
-    <td>640</td>
-  </tr>
 </table>
 </center>
+
+It must be noted that the following model can be extended(or reconfigured) for more than 10 classes with further inclusion of data from different classes in the same manner as it has currently been done.
 
 After training, the default export scirpt for the yolov5 project was modified to make sure the outputs of the inference instance are {bounding boxes, confidence, class}. Below are some visual results of the model training:
 
